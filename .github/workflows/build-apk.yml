@@ -46,10 +46,13 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install "cython<3.1" buildozer
 
-      - name: Verify pinned Android Python
+      - name: Verify Android build settings
         run: |
           echo "=== buildozer requirements ==="
           grep -n "^requirements" buildozer.spec
+          echo "=== Android API settings ==="
+          grep -n "^android.api" buildozer.spec
+          grep -n "^android.minapi" buildozer.spec
           python --version
 
       - name: Clean previous Android build
