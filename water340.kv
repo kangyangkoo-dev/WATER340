@@ -1,0 +1,171 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
+<FlatButton@Button>:
+    background_normal: ''
+    background_down: ''
+    background_color: (.8,.8,.8,1)
+    color: (0,0,0,1)
+    font_name: app.font_name
+    font_size: sp(15)
+
+<RootView>:
+    orientation: 'vertical'
+    padding: dp(8)
+    spacing: dp(8)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(38)
+        spacing: dp(5)
+        Label:
+            text: 'Connection Status: ' + app.connection_status
+            font_name: app.font_name
+            color: (0,0,0,1)
+        CheckBox:
+            id: server1
+            size_hint_x: None
+            width: dp(32)
+            on_release: app.select_broker(1) if self.active else None
+        Label:
+            text: '서버1'
+            font_name: app.font_name
+            color: (0,0,0,1)
+            size_hint_x: None
+            width: dp(55)
+        CheckBox:
+            id: server2
+            size_hint_x: None
+            width: dp(32)
+            on_release: app.select_broker(2) if self.active else None
+        Label:
+            text: '서버2'
+            font_name: app.font_name
+            color: (0,0,0,1)
+            size_hint_x: None
+            width: dp(55)
+        CheckBox:
+            id: server3
+            size_hint_x: None
+            width: dp(32)
+            on_release: app.select_broker(3) if self.active else None
+        Label:
+            text: '서버3'
+            font_name: app.font_name
+            color: (0,0,0,1)
+            size_hint_x: None
+            width: dp(55)
+
+    FlatButton:
+        id: connect_btn
+        size_hint_y: None
+        height: dp(48)
+        text: 'MQTT Connect.'
+        background_color: (1,0,0,1)
+        on_release: app.toggle_connection()
+
+    Widget:
+        size_hint_y: None
+        height: dp(20)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(64)
+        spacing: dp(7)
+        FlatButton:
+            id: state1
+            text: '모터1'
+            on_release: app.motor_click(1)
+        FlatButton:
+            id: state2
+            text: '모터2'
+            on_release: app.motor_click(2)
+        FlatButton:
+            id: state3
+            text: '모터3'
+            on_release: app.motor_click(3)
+        FlatButton:
+            id: state4
+            text: '모터4'
+            on_release: app.motor_click(4)
+        FlatButton:
+            id: state5
+            text: '감시5'
+            disabled: True
+
+    Widget:
+        size_hint_y: None
+        height: dp(10)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(78)
+        spacing: dp(7)
+        FlatButton:
+            id: state6
+            text: 'Lock mode'
+            on_release: app.lock_click()
+        FlatButton:
+            text: '리셋모드'
+            background_color: (.533,.533,.533,1)
+            color: (1,1,0,1)
+            on_release: app.reset_click()
+        FlatButton:
+            id: state7
+            text: 'Autostop'
+            on_release: app.autostop_click()
+        BoxLayout:
+            orientation: 'vertical'
+            CheckBox:
+                id: auto15
+                group: 'autotime'
+                on_release: app.choose_autotime(15) if self.active else None
+            Label:
+                text: '15분 동작'
+                font_name: app.font_name
+                color: (0,0,0,1)
+                font_size: sp(12)
+            CheckBox:
+                id: auto25
+                group: 'autotime'
+                on_release: app.choose_autotime(25) if self.active else None
+            Label:
+                text: '25분 동작'
+                font_name: app.font_name
+                color: (0,0,0,1)
+                font_size: sp(12)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(58)
+        spacing: dp(7)
+        FlatButton:
+            id: v2
+            text: 'V2'
+            on_release: app.choose_device(2)
+        FlatButton:
+            id: v3
+            text: 'V3'
+            on_release: app.choose_device(3)
+        FlatButton:
+            id: v4
+            text: 'V4'
+            on_release: app.choose_device(4)
+        FlatButton:
+            id: v5
+            text: 'V5'
+            on_release: app.choose_device(5)
+
+    Label:
+        size_hint_y: None
+        height: dp(42)
+        text: app.message_log
+        font_name: app.font_name
+        font_size: sp(14)
+        color: (1,1,1,1)
+        canvas.before:
+            Color:
+                rgba: (.533,.533,.533,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
